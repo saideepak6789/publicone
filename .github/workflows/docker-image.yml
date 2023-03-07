@@ -15,6 +15,23 @@ jobs:
       with:
         java-version: '17'
         distribution: 'temurin'
+    - name: Setup BATS
+      uses: mig4/setup-bats@v1
+      with:
+        bats-version: 1.7.0
+
+    - name: Setup Bats libs
+      uses: brokenpip3/setup-bats-libs@0.1.0
+
+    - name: Check out code
+      uses: actions/checkout@v1
+
+    - name: Install Trivy
+      run: |
+        curl -sfL https://raw.githubusercontent.com/aquasecurity/trivy/main/contrib/install.sh | sh -s -- -b /usr/local/bin v${{ env.TRIVY_VERSION }}
+    - name: Test
+      run: BATS_LIB_PATH=${{ env.BATS_LIB_PATH }} bats --recursive --timing .
+
     - name: Build with Maven
       run: mvn -B package --file pom.xml
     - name: Login to Docker Hub

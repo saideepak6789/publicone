@@ -22,7 +22,7 @@ jobs:
       with:
         context: .
         push: true
-        tags: deepaksai678/hello-worldy:latest
+        tags: deepaksai678/hello-world:latest
       env:
         DOCKER_USERNAME: ${{ secrets.DOCKER_USERNAME }}
         DOCKER_PASSWORD: ${{ secrets.DOCKER_PASSWORD }}
